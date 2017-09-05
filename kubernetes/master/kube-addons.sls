@@ -62,6 +62,22 @@ addon-dir-create:
 
 {% endif %}
 
+{%- if common.addons.storageclass is defined %}
+
+{%- for storageclass_name, storageclass in common.addons.get('storageclass', {}).iteritems() %}
+
+/etc/kubernetes/addons/storageclass/{{ storageclass_name }}.yaml:
+  file.managed:
+  - source: salt://kubernetes/files/kube-addons/{{ storageclass.provisioner }}.yaml
+  - template: jinja
+  - makedirs: True
+  - dir_mode: 755
+  - group: root
+
+{%- endfor %}
+
+{% endif %}
+
 {%- if common.addons.netchecker.enabled %}
 
 {%- for resource in ['svc', 'server', 'agent'] %}

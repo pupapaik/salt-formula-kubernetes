@@ -571,6 +571,24 @@ Kubernetes with GlusterFS for storage
             port: 24007
          ...
 
+Kubernetes Storage Class
+------------------------
+
+.. code-block:: yaml
+
+    kubernetes:
+      common:
+        addons:
+          storageclass:
+            aws_slow:
+              name: slow
+              enabled: True
+              default: True
+              provisioner: aws-ebs
+              type: gp2
+              iopspergb: "10"
+              zones: xxx
+
 Kubernetes namespaces
 ---------------------
 
